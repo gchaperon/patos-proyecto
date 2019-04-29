@@ -16,3 +16,7 @@ pickle.dump(d, open('user_data.pic', 'wb'))
 ```
 
 despues de eso creo que deberia funcionar el mini escrip pa sacar el mensaje del foro
+```shell
+python3 test_login.py
+```
+
