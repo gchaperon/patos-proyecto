@@ -13,7 +13,7 @@ payload['servicio'] = 'ucursos'
 # esta wea es a logearse con el usuario de cada uno y mantener la sesion
 # abierta pa poder seguir SURFEANDO ucursos
 post_url = 'https://www.u-cursos.cl/upasaporte/adi'
-print(payload)
+# print(payload)
 session = requests.Session()
 response = session.post(post_url, data=payload)
 print(response.status_code)
@@ -26,8 +26,17 @@ response = session.get(first_page)
 
 # esto es pa parsear el html y poder buscar weas
 soup = BeautifulSoup(response.text, features='html5lib')
-comment = soup.find('div', {'id': 'mensaje_2205098'})
-assert comment is not None, \
-  'diablos, quiza el mensaje que busco ya no esta en la pagina principal'
+comments = soup.find_all(
+	lambda tag : tag.has_attr('class')
+		and set(['msg', 'raiz']).issubset(tag['class'])
+)
+assert len(comments) != 0, \
+  'diablos, no pille ningun mensaje'
 
-print(comment) 
+print('Pille {} mensajes raiz! Aca te van:'.format(len(comments)))
+
+
+for i, comment in enumerate(comments):
+	print('{}. ======================================='.format(i+1))
+	print(comment.div.div.get_text().strip())
+	print()
