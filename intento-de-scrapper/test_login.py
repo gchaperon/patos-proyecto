@@ -37,6 +37,6 @@ print('Pille {} mensajes raiz! Aca te van:'.format(len(comments)))
 
 
 for i, comment in enumerate(comments):
-	print('{}. ======================================='.format(i+1))
+	print('{}. ======================================='.format(i + 1))
 	print(comment.div.div.get_text().strip())
 	print()
