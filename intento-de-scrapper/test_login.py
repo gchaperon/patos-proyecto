@@ -33,7 +33,7 @@ comments = soup.find_all(
 assert len(comments) != 0, \
   'diablos, no pille ningun mensaje'
 
-print('Pille {} mensajes raiz! Aca te van:'.format(len(comments)))
+print(f'Pille {len(comments)} mensajes raiz! Aca te van:')
 
 
 for i, comment in enumerate(comments):
