@@ -35,10 +35,10 @@ async def download_all(batches, csv_writer):
 
 if __name__ == '__main__':
   # N es la cantidad de paginas que se quiere descargar (el ultimo offset)
-  N = 10000
+  N = 1000
   # M es la cantidad de requests que se quieren hacer de una
   # WARNING: CUIDADO CON HACER ESTO MUY GRANDE, PUEDE QUEDAR LA CAGADA
-  M = 100
+  M = 50
   print(f'Cantidad total de requests: {N}')
   print(f'Cantidad de requests a la vez: {M}')
   print(f'Numero de batches: {(N + M - 1) // M}')
