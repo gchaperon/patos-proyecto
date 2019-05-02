@@ -20,6 +20,7 @@ async def download_page(session, url, csv_writer):
 async def download_batch(session, batch, csv_writer):
   tasks = []
   for url in batch:
+    print(f'\tDescargando url: {url}')
     task = asyncio.ensure_future(download_page(session, url, csv_writer))
     tasks.append(task)
   await asyncio.gather(*tasks)
@@ -35,10 +36,10 @@ async def download_all(batches, csv_writer):
 
 if __name__ == '__main__':
   # N es la cantidad de paginas que se quiere descargar (el ultimo offset)
-  N = 1000
+  N = 50
   # M es la cantidad de requests que se quieren hacer de una
   # WARNING: CUIDADO CON HACER ESTO MUY GRANDE, PUEDE QUEDAR LA CAGADA
-  M = 50
+  M = 3
   print(f'Cantidad total de requests: {N}')
   print(f'Cantidad de requests a la vez: {M}')
   print(f'Numero de batches: {(N + M - 1) // M}')
