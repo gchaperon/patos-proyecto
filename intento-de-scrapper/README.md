@@ -50,4 +50,19 @@ Absolutos:
 * (y parece que el cambio de esta a las anteriores fue el 01/01/19)
 
 
+# Que weas seria bueno guardar.
+## Para el OP
+* id
+* titulo
+* autor
+* fecha
+* tema
+* mensaje
 
+## Para las respuesta
+* id
+* id del thread al que pertenece
+* id a quien responde
+* autor
+* fecha
+* mensaje
