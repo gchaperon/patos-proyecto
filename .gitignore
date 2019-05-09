@@ -1,0 +1,9 @@
+user_data.pic
+out.tsv
+
+__pycache__/
+
+env/
+venv/
+
+*.tsv
