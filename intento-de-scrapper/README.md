@@ -1,11 +1,23 @@
 # Como correr test_login.py
-Pa correr la wea, primero instalar requisitos (usen ipython es bonito)
+Pa correr la wea, primero instalar requisitos (usen ipython es bonito).
+
+Esto corre solamente con python 3.6, con python 3.7 no me funciono. Quiza tengan que usar un entorno virtual
+
 
 ```shell
 pip install -r requirements.txt
 ```
 
-de ahi tienen que guardar un archivito con pickle con su nombre de usuario y contrasenna de ucursos pa poder loguearse (esto se puede hacer en una shell de python en la carpeta del escrip)
+El script viene con un mensaje de help, asique siempre pueden ver que hace poniendo
+```shell
+python scraper.py -h
+```
+
+
+Para la autenticacion hay dos opciones.
+
+La primera es guardar tus datos en un pickle y el script los abre y ocupa pa loguearse
+(esto se puede hacer en una shell de python en la carpeta del escrip)
 ```python
 import pickle
 d = {
@@ -15,10 +27,21 @@ d = {
 pickle.dump(d, open('user_data.pic', 'wb'))
 ```
 
-despues de eso creo que deberia funcionar el mini escrip pa sacar el mensaje del foro
+La otra opcion es no poner nada y el scrip va a preguntar por nombre de usuario y contrasenna. Esto quiza es menos comodo si hay que correrlo varias veces.
+
+El escrip necesita un rango de paginas que descargar, esos se le pasan por linea de comandos.
+
+Ademas opcionalmente se puede setear el tamanno del batch (default 10) usando la flag -b
+
+Un ejemplo de ejecucion teniendo el pickle en la misma carpeta seria
 ```shell
-python3 test_login.py
+python scraper.py 0 100 -b 5 -l data.pic
 ```
+Esto baja de la pagina 1 hasta la pagina 100, en grupos de 5 usando los datos
+del usuario que estan en data.pic
+
+
+
 
 # Como correr test_concurrent.py
 Este escrip le hace peticiones a example.com y guarda datos de la pagina (los mismos cada vez) en un archivito que se llama out.tsv. En el main del escrip se pueden modificar la cantidad total de requests y la cantidad que se hace a la vez. Pa correrlo primero se deberian instalar los requisitos en caso que no esten actualizados
