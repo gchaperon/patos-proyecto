@@ -6,7 +6,8 @@ from bs4 import BeautifulSoup
 import re
 import argparse
 import sys
-from getpass import getpass
+import getpass.getpass
+import time
 
 def parse_arguments():
   parser = argparse.ArgumentParser(
@@ -58,6 +59,7 @@ def extract_data(raw_html):
     comentario.ul.decompose()
     text = comentario.getText(strip=True)
     temp['mensaje'] = text if len(text) > 0 else 'NO_TEXT'
+    temp['current_time'] = time.time()
     roots.append(temp)
 
   hijos = soup.find_all('div', class_='hijo')
@@ -75,6 +77,7 @@ def extract_data(raw_html):
     comentario.ul.decompose()
     text = comentario.getText(strip=True)
     temp['mensaje'] = text if len(text) > 0 else 'NO_TEXT'
+    temp['current_time'] = time.time()
     childs.append(temp)
 
   return roots, childs
@@ -126,7 +129,7 @@ async def download_all(batches, root_writer, child_writer, login_data):
     else:
       payload = {}
       payload['username'] = input('Nombre de usuario: ')
-      payload['password'] = getpass('Contrasenna (tranqui no se muestra): ')
+      payload['password'] = getpass.getpass('Contrasenna (tranqui no se muestra): ')
 
     # es importante agregarle esto a la wea que se envia pa poder loguearse
     payload['servicio'] = 'ucursos'
@@ -189,7 +192,7 @@ if __name__ == '__main__':
   # ahora empieza el mambo con I/O
   with open(f'root_{args.start}-{args.finish}.tsv', 'w') as f_root,\
       open(f'child_{args.start}-{args.finish}.tsv', 'w') as f_child:
-    root_fields = ['id', 'titulo', 'autor', 'fecha', 'tema', 'mensaje']
+    root_fields = ['id', 'titulo', 'autor', 'fecha', 'tema', 'mensaje', 'current_time']
     root_writer = csv.DictWriter(
       f_root,
       fieldnames=root_fields,
@@ -197,7 +200,7 @@ if __name__ == '__main__':
     )
     root_writer.writeheader()
     
-    child_fields = ['id', 'id_th', 'id_p', 'autor', 'fecha', 'mensaje']
+    child_fields = ['id', 'id_th', 'id_p', 'autor', 'fecha', 'mensaje', 'current_time']
     child_writer = csv.DictWriter(
       f_child,
       fieldnames=child_fields,
