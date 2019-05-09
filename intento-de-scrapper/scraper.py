@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 import re
 import argparse
 import sys
-import getpass.getpass
+import getpass
 import time
 
 def parse_arguments():
