@@ -5,9 +5,31 @@ import csv
 from bs4 import BeautifulSoup
 import re
 import argparse
+import sys
+from getpass import getpass
 
 def parse_arguments():
-  
+  parser = argparse.ArgumentParser(
+    description=(
+      'Descarga las paginas [START, FINISH) del foro de la facultad.\n'
+      'El tamanno default del batch es 10, tener cuidado con este parametro '
+      'porque hacerlo muy grande puede hacer que bloqueen la cuenta.\n'
+      'Leer el readme para una descripcion mas detrallada de uso y requisitos.'
+      'Los archivos de salida se generan automaticamente y se llaman root_START-FINISH.tsv'
+      'y child_START-FINISH.tsv'
+    )
+  )
+
+  parser.add_argument("start", metavar="START", help="primera pagina que se quiere bajar",
+                      type=int)
+  parser.add_argument("finish", metavar="FINISH", help="ultima pagina que se quiere bajar",
+                      type=int)
+  parser.add_argument("-b", "--batch_size", default=10, help="cantidad de paginas que se bajan a la vez, default 10",
+                      type=int)
+  parser.add_argument("-l", "--login_data", help="un pickle con los datos del usuario para realizar la conexion, si se omite el script pide login")
+
+  args = parser.parse_args()
+  return args
 
 
 def extract_data(raw_html):
@@ -82,8 +104,10 @@ async def download_page(session, url, root_writer, child_writer):
 
 async def download_batch(session, batch, root_writer, child_writer):
   tasks = []
-  for url in batch:
-    # print(f'\tDescargando url: {url}')
+  for i, url in enumerate(batch):
+    if i is 0:
+      print(f'\tPrimera url del batch: {url}')
+
     task = asyncio.ensure_future(
       download_page(session, url, root_writer, child_writer)
     )
@@ -91,12 +115,18 @@ async def download_batch(session, batch, root_writer, child_writer):
   await asyncio.gather(*tasks)
 
 
-async def download_all(batches, root_writer, child_writer):
+async def download_all(batches, root_writer, child_writer, login_data):
   async with aiohttp.ClientSession() as session:
-    # conectar a cuent ade ucursos aqui
+    # conectar a cuenta de ucursos aqui, si no se pasa un archivo
+    # el script pide login
     # tengo mis datos escondidos, porque obvio
-    with open('user_data.pic', 'rb') as f:
-      payload = pickle.load(f)
+    if login_data:
+      with open('user_data.pic', 'rb') as f:
+        payload = pickle.load(f)
+    else:
+      payload = {}
+      payload['username'] = input('Nombre de usuario: ')
+      payload['password'] = getpass('Contrasenna (tranqui no se muestra): ')
 
     # es importante agregarle esto a la wea que se envia pa poder loguearse
     payload['servicio'] = 'ucursos'
@@ -107,7 +137,9 @@ async def download_all(batches, root_writer, child_writer):
     post_url = 'https://www.u-cursos.cl/upasaporte/adi'
 
     async with session.post(post_url, data=payload) as resp:
+      print(f"Hola, {payload['username'].split('.')[0].capitalize()} !")
       print('Respuesta login: ', resp.status)
+      print()
       assert resp.status == 200, 'diablos, deberia ser 200'
     
     for i, batch in enumerate(batches):
@@ -116,11 +148,15 @@ async def download_all(batches, root_writer, child_writer):
 
 
 if __name__ == '__main__':
+  args = parse_arguments()
+  # print(args)
+  # sys.exit()
   # N es la cantidad de paginas que se quiere descargar (el ultimo offset)
-  N = 9521
+  N = args.finish - args.start
   # M es la cantidad de requests que se quieren hacer de una
   # WARNING: CUIDADO CON HACER ESTO MUY GRANDE, PUEDE QUEDAR LA CAGADA
-  M = 20
+  M = args.batch_size
+
   print(f'Cantidad total de requests: {N}')
   print(f'Cantidad de requests a la vez: {M}')
   print(f'Numero de batches: {(N + M - 1) // M}')
@@ -139,7 +175,7 @@ if __name__ == '__main__':
   # igual es sacrilegio
   batches = (
     (
-      base_url.format(j)
+      base_url.format(args.start + j)
       for j
       in range(
         i * M,
@@ -151,8 +187,8 @@ if __name__ == '__main__':
   )
 
   # ahora empieza el mambo con I/O
-  with open('root_comments.tsv', 'w') as f_root,\
-      open('child_comments.tsv', 'w') as f_child:
+  with open(f'root_{args.start}-{args.finish}.tsv', 'w') as f_root,\
+      open(f'child_{args.start}-{args.finish}.tsv', 'w') as f_child:
     root_fields = ['id', 'titulo', 'autor', 'fecha', 'tema', 'mensaje']
     root_writer = csv.DictWriter(
       f_root,
@@ -170,6 +206,8 @@ if __name__ == '__main__':
     child_writer.writeheader()
     
     asyncio.get_event_loop().run_until_complete(
-      download_all(batches, root_writer, child_writer)
+      download_all(batches, root_writer, child_writer, args.login_data)
     )
+    print()
+    print("Creo que termine, igual revisa que la cantidad de comentarios descargados tenga sentido")
     
