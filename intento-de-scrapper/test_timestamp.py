@@ -13,7 +13,7 @@ mes = {
     'Agosto' : 8,
     'Septiembre' : 9,
     'Octubre' : 10,
-    'Noviembre' : 11;
+    'Noviembre' : 11,
     'Diciembre' : 12
 }
 
