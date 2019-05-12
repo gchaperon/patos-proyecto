@@ -49,7 +49,11 @@ def extract_data(raw_html):
     temp = {}
     temp['id'] = raiz.attrs['id'].split('_')[1]
     temp['titulo'] = raiz.h1.getText(strip=True)
-    temp['autor'] = raiz.find('a', class_='usuario').getText(strip=True)
+    temp['autor'] = (
+      raiz.find('a', class_='usuario').getText(strip=True) 
+      if raiz.find('a', class_='usuario') is not None
+      else "NO_AUTHOR"
+    )
     temp['fecha'] = raiz.find('li', class_='fecha').getText(strip=True)
     temp['tema'] = raiz.find('li', class_='tema').a.getText(strip=True)
     # para sacar el texto de un comentario hay que eliminar la lista
@@ -69,7 +73,11 @@ def extract_data(raw_html):
     temp['id'] = hijo.attrs['id'].split('_')[1]
     temp['id_th'] = hijo.attrs['class'][1][1:]
     temp['id_p'] = hijo.parent.attrs['id'].split('_')[1]
-    temp['autor'] = hijo.find('a', class_='usuario').getText(strip=True)
+    temp['autor'] = (
+      hijo.find('a', class_='usuario').getText(strip=True) 
+      if hijo.find('a', class_='usuario') is not None
+      else "NO_AUTHOR"
+    )
     temp['fecha'] = hijo.find('em').getText(strip=True)
 
     # mismos comentarios que arriba
@@ -97,6 +105,7 @@ async def download_page(session, url, root_writer, child_writer):
   """
   async with session.get(url) as response:
     # por ahora voy a probar solo con example.com y me se donde esta el texto
+    # print(f'\t{url}')
     roots, childs = extract_data(await response.text())
     for root in roots:
       root_writer.writerow(root)
