@@ -207,7 +207,9 @@ if __name__ == '__main__':
       fieldnames=root_fields,
       delimiter='\t'
     )
-    root_writer.writeheader()
+    # mejor no escribir el header, para que sea mas facil unir
+    # los archivos usando cat
+    # root_writer.writeheader()
     
     child_fields = ['id', 'id_th', 'id_p', 'autor', 'fecha', 'mensaje', 'current_time']
     child_writer = csv.DictWriter(
@@ -215,7 +217,8 @@ if __name__ == '__main__':
       fieldnames=child_fields,
       delimiter='\t'
     )
-    child_writer.writeheader()
+    # mismo comentario de mas arriba
+    # child_writer.writeheader()
     
     asyncio.get_event_loop().run_until_complete(
       download_all(batches, root_writer, child_writer, args.login_data)
