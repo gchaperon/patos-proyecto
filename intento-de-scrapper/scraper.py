@@ -61,7 +61,7 @@ def extract_data(raw_html):
     comentario = raiz.find('div', class_='texto')
     # cuidado que esto modifica la sopa, el ul se borra definitivamente
     comentario.ul.decompose()
-    text = comentario.getText(strip=True)
+    text = ' '.join(comentario.stripped_strings)
     temp['mensaje'] = text if len(text) > 0 else 'NO_TEXT'
     temp['current_time'] = time.time()
     roots.append(temp)
@@ -83,7 +83,7 @@ def extract_data(raw_html):
     # mismos comentarios que arriba
     comentario = hijo.find('div', class_='texto')
     comentario.ul.decompose()
-    text = comentario.getText(strip=True)
+    text = ' '.join(comentario.stripped_strings)
     temp['mensaje'] = text if len(text) > 0 else 'NO_TEXT'
     temp['current_time'] = time.time()
     childs.append(temp)
