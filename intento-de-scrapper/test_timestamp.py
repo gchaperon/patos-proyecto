@@ -127,11 +127,14 @@ def files_with_timestamp(file, type):
 
         if(type=="ROOT"):
             fields = ['id', 'titulo', 'autor', 'fecha_ts', 'tema', 'mensaje']
+            fields_in= ['id', 'titulo', 'autor', 'fecha', 'tema', 'mensaje', 'current_time']
         elif(type=="CHILD"):
             fields = ['id', 'id_th', 'id_p', 'autor', 'fecha_ts', 'mensaje']
+            fields_in = ['id', 'id_th', 'id_p', 'autor', 'fecha', 'mensaje', 'current_time']
         
         reader = csv.DictReader(
             src_file,
+            fieldnames=fields_in,
             delimiter='\t'
                 )
         writer = csv.DictWriter(
