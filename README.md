@@ -4,7 +4,7 @@
 
 ### Serio
 1. pares de personas que mas han discutido (como definimos discutir ??)
-  * Por ahora una discusion sera: A comenta -> B responde a A -> A responde a B
+    * Por ahora una discusion sera: A comenta -> B responde a A -> A responde a B
 2. buscar top comenters, (por año), ver los del curso, personas que han comentado una sola vez en el foro
 3. periodos de mayor actividad, con distintas granularidades (hora, dias, en un año)
 4. conteo de palabras, palabras mas usadas, en titulos, cuerpo, etc
