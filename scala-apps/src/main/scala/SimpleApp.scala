@@ -11,4 +11,4 @@ object SimpleApp {
     println(s"Lines with a: $numAs, Lines with b: $numBs")
     spark.stop()
   }
-}	
+}
