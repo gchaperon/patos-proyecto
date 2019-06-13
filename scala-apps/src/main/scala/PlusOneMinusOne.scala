@@ -11,5 +11,5 @@ object PlusOneMinusOne {
     val countAll = rootComments.filter(line => line.split("\t").size.equals(1)).count()
     println(s"Numero total de encuestas +1/-1: $countAll")
     spark.stop()
-  }    
+  }
 }

@@ -11,4 +11,4 @@ venv/
 
 concat
 
-data
+data/*.tsv
