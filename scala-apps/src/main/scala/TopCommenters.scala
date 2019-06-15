@@ -34,27 +34,24 @@ object TopCommenters {
     val superWoenAndDateRDD = rootWoenAndDateRDD.union(childWoenAndDateRDD).cache();
 
 
-    def seqOp = (accumulator: PriorityQueue, element: (String, Long)) => {
-      if(accumulator.length < 10) {
-        return accumulator.enqueue(element) 
-      } else {
-        if accumulator.head._2 < element._2 {
-          accumulator.dequeue()
-          return accumulator.enqueue(element)
-        } else {
-          return accumulator
-        }
-      }
-    }
+//    def seqOp = (accumulator: PriorityQueue, element: (String, Long)) => {
+//      if(accumulator.length < 10) {
+//        return accumulator.enqueue(element)
+//      } else {
+//        if accumulator.head._2 < element._2 {
+//          accumulator.dequeue()
+//          return accumulator.enqueue(element)
+//        } else {
+//          return accumulator
+//        }
+//      }
+//    }
  
 
     superWoenAndDateRDD
       .map(pair => (pair, 1L))
       .reduceByKey((u, v) => u + v)
       .map(row => (row._1._2, (row._1._1, row._2)))
-      .aggregateByKey(
-        new PriorityQueue(Ordering.by[(String, Long), Long](- _._2))
-      )()
       .take(10)
       .foreach(println)
 
