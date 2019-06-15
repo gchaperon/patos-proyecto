@@ -2,11 +2,11 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.api.java.function.Function2;
-import org.apache.spark.api.java.function.PairFunction;
 import scala.Tuple2;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
 
 public class TopCommanders {
     public static void main(String[] args) {
@@ -49,26 +49,5 @@ public class TopCommanders {
             .sortByKey()
             .collect()
             .forEach(System.out::println);
-//            .aggregateByKey(new PriorityQueue<Tuple2<String, Long>>((t1, t2) -> t1._2.compareTo(t2._2)),
-//                (elAcumuladorQueVaASalir, laTuplaQueVieneEntrando) -> {
-//                    if (elAcumuladorQueVaASalir.size() < 10) {
-//                        elAcumuladorQueVaASalir.add(laTuplaQueVieneEntrando);
-//                    } else {
-//                        if (elAcumuladorQueVaASalir.peek()._2 < laTuplaQueVieneEntrando._2) {
-//                            elAcumuladorQueVaASalir.poll();
-//                            elAcumuladorQueVaASalir.add(laTuplaQueVieneEntrando);
-//                        }
-//                    }
-//                    return elAcumuladorQueVaASalir;
-//                }, (pq1, pq2) -> {
-//                    while (!pq2.isEmpty()) {
-//                        pq1.add(pq2.poll());
-//                    }
-//
-//                    while (pq1.size() > 10) {
-//                        pq1.poll();
-//                    }
-//                    return pq1;
-//                })
     }
 }
