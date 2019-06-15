@@ -36,14 +36,14 @@ object TopCommenters {
 
     def seqOp = (accumulator: PriorityQueue, element: (String, Long)) => {
       if(accumulator.length < 10) {
-        accumulator.enqueue(element) 
+        return accumulator.enqueue(element) 
       } else {
         if accumulator.head._2 < element._2 {
           accumulator.dequeue()
           return accumulator.enqueue(element)
+        } else {
+          return accumulator
         }
-
-
       }
     }
  
