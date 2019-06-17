@@ -8,11 +8,11 @@
 2. buscar top comenters, (por año), ver los del curso, personas que han comentado una sola vez en el foro
 3. periodos de mayor actividad, con distintas granularidades (hora, dias, en un año)
 4. conteo de palabras, palabras mas usadas, en titulos, cuerpo, etc
-5. cantidad de personas distintas que han comentado por año
+5. DONE cantidad de personas distintas que han comentado por año
 6. buscar raices con mas respuestas
 
 ### Pal meme
 1. cuantas veces a publicado JULIO SALAS, comparacion pre post comentario rodilleras
 2. numero de comentarios de aceituno antes y despues que le digan lo bacan que es su apellido
-3. numero de votaciones  +1/-1, pre y post remocion de -1 (post julio 2018)
+3. DONE numero de votaciones  +1/-1, pre y post remocion de -1 (post julio 2018)
 
