@@ -19,7 +19,7 @@ public class MostAnsweredRoots {
                         line.split("\t")[1],
                         1
                 )
-        ).reduceByKey(Integer::sum).sortByKey(false);
+        ).reduceByKey(Integer::sum);
 
         JavaPairRDD<String, String> idAndTitleRDD = inputsRootsRDD.mapToPair(
                 line -> new Tuple2<>(
@@ -32,7 +32,7 @@ public class MostAnsweredRoots {
 
         JavaPairRDD<String, Integer> r = rootTitleAndOccurrences.mapToPair(tup -> tup._2);
 
-        r.foreach(System.out::println);
+        r.sortByKey(false).foreach(System.out::println);
     }
 
 }
