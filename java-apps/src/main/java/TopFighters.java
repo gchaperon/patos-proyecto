@@ -57,7 +57,31 @@ public class TopFighters {
                 .mapToPair( row -> new Tuple2<>(
                    row._2._2._3(),
                    new Tuple3<>(row._2._1._1._1(), row._2._1._2._1(), row._2._2._1())
-                )).take(10).forEach(System.out::println);
+                ))
+                .filter(row -> (row._2._1().equals(row._2._3()) && !row._2._1().equals(row._2._3())))
+                .mapToPair(row -> {
+                    String f = row._2._1();
+                    String s = row._2._2();
+                    String u;
+                    String d;
+                    if (f.compareTo(s) < 0){
+                        u = f;
+                        d = s;
+                    } else {
+                        u = s;
+                        d = f;
+                    }
+                    return new Tuple2<>(row._1, new Tuple2<>(u,d));
+                })
+                .distinct()
+                .mapToPair(row -> new Tuple2<>(row._2,1))
+                .reduceByKey(Integer::sum)
+                .mapToPair(row -> new Tuple2<>(row._2,row._1))
+                .sortByKey(false)
+                .take(20)
+                .forEach(System.out::println);
+
+                //take(10).forEach(System.out::println);
 
 
     }
