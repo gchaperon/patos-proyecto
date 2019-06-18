@@ -10,9 +10,9 @@
     * ver los del curso
     * personas que han comentado una sola vez en el foro, cuantas?
 <!-- 3. periodos de mayor actividad, con distintas granularidades (hora, dias, en un año) -->
-4. conteo de palabras, palabras mas usadas, en titulos, cuerpo, etc (chap)
-5. cantidad de personas distintas que han comentado por año (guido)
-6. buscar raices con mas respuestas (lecaro)
+4. DONE!conteo de palabras, palabras mas usadas, en titulos, cuerpo, etc (chap)
+5. DONE! cantidad de personas distintas que han comentado por año (guido)
+6. DONE!buscar raices con mas respuestas (lecaro)
 
 ### Pal meme
 1. cuantas veces a publicado JULIO SALAS, comparacion pre post comentario rodilleras
