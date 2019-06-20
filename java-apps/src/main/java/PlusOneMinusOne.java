@@ -8,8 +8,10 @@ import java.util.Date;
 
 public class PlusOneMinusOne {
     public static void main(String[] args) {
-        String filePath = "/home/gabriel/2019-1/patos/proyecto/data/root_all_wrepeat_tsdate_fixed.tsv";
+
+        String filePath = args[0];
         JavaSparkContext spark = new JavaSparkContext(new SparkConf().setAppName("Count +1/-1"));
+
 
         JavaRDD<String> inputRDD = spark.textFile(filePath);
         long countPreBan = inputRDD

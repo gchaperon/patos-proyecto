@@ -16,7 +16,7 @@ public class JulyRooms {
         String rootsPath = "/home/gabriel/2019-1/patos/proyecto/data/root_all_wrepeat_tsdate_fixed.tsv";
         String childsPath = "/home/gabriel/2019-1/patos/proyecto/data/child_all_wrepeat_tsdate_fixed.tsv";
 
-        JavaSparkContext spark = new JavaSparkContext(new SparkConf().setAppName("July Rooms"));
+        JavaSparkContext spark = new JavaSparkContext(new SparkConf().setAppName("July Rooms KneePads"));
 
         JavaRDD<String> inputRootsRDD = spark.textFile(rootsPath).distinct();
         JavaRDD<String> inputChildsRDD = spark.textFile(childsPath).distinct();
