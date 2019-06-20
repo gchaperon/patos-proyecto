@@ -12,12 +12,12 @@ import java.util.stream.Stream;
 
 public class TopCommanders {
     public static void main(String[] args) throws IOException {
-        String rootsPath = "/home/gabriel/2019-1/patos/proyecto/data/root_all_wrepeat_tsdate_fixed.tsv";
-        String childsPath = "/home/gabriel/2019-1/patos/proyecto/data/child_all_wrepeat_tsdate_fixed.tsv";
+        String rootsPath = args[0];
+        String childsPath = args[1];
 
         JavaSparkContext spark = new JavaSparkContext(new SparkConf().setAppName("Count +1/-1"));
 
-        JavaRDD<String> inputRootsRDD = spark.textFile(rootsPath);
+        JavaRDD<String> inputRootsRDD = spark.textFile(rootsPath).distinct();
         JavaPairRDD<String, Integer> rootWoenAndDateRDD = inputRootsRDD.mapToPair(
                 line -> new Tuple2<>(
                         line.split("\t")[2],
@@ -25,7 +25,7 @@ public class TopCommanders {
                 )
         );
 
-        JavaRDD<String> inputChildsRDD = spark.textFile(childsPath);
+        JavaRDD<String> inputChildsRDD = spark.textFile(childsPath).distinct();
         JavaPairRDD<String, Integer> childWoenAndDateRDD = inputChildsRDD.mapToPair(
                 line -> new Tuple2<>(
                         line.split("\t")[3],
@@ -55,8 +55,8 @@ public class TopCommanders {
 
         System.out.println("\nTop commanders de curso:");
         Set<String> set = new HashSet<>();
-        String stopWordsPath = "/home/gabriel/2019-1/patos/proyecto/data/classCOMRADES.txt";
-        try (Stream<String> stream = Files.lines(Paths.get(stopWordsPath))) {
+        String comradesPath = args[2];
+        try (Stream<String> stream = Files.lines(Paths.get(comradesPath))) {
             stream.forEach(set::add);
         }
         inputRootsRDD

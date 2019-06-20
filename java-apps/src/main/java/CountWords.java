@@ -16,18 +16,18 @@ public class CountWords {
         // stop words
 
         Set<String> set = new HashSet<>();
-        String stopWordsPath = "/home/gabriel/2019-1/patos/proyecto/data/stop_words.txt";
+        String stopWordsPath = args[0];
         try (Stream<String> stream = Files.lines(Paths.get(stopWordsPath))) {
             stream.forEach(set::add);
         }
 
-        String rootsPath = "/home/gabriel/2019-1/patos/proyecto/data/root_all_wrepeat_tsdate_fixed.tsv";
-        String childsPath = "/home/gabriel/2019-1/patos/proyecto/data/child_all_wrepeat_tsdate_fixed.tsv";
+        String rootsPath = args[1];
+        String childsPath = args[2];
 
         JavaSparkContext spark = new JavaSparkContext(new SparkConf().setAppName("Count +1/-1"));
 
-        JavaRDD<String> inputRootsRDD = spark.textFile(rootsPath);
-        JavaRDD<String> inputChildsRDD = spark.textFile(childsPath);
+        JavaRDD<String> inputRootsRDD = spark.textFile(rootsPath).distinct();
+        JavaRDD<String> inputChildsRDD = spark.textFile(childsPath).distinct();
 
         System.out.println("\nTop ten palabras en todos lados:");
 

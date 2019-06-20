@@ -38,8 +38,8 @@ public class TopCommentersPerTheme {
 
 
     public static void main(String[] args) {
-        String rootsPath = "/home/gabriel/2019-1/patos/proyecto/data/root_all_wrepeat_tsdate_fixed.tsv";
-        String childsPath = "/home/gabriel/2019-1/patos/proyecto/data/child_all_wrepeat_tsdate_fixed.tsv";
+        String rootsPath = args[0];
+        String childsPath = args[1];
 
         JavaSparkContext spark = new JavaSparkContext(new SparkConf().setAppName("Count +1/-1"));
 

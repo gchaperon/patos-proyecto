@@ -13,7 +13,7 @@ public class PlusOneMinusOne {
         JavaSparkContext spark = new JavaSparkContext(new SparkConf().setAppName("Count +1/-1"));
 
 
-        JavaRDD<String> inputRDD = spark.textFile(filePath);
+        JavaRDD<String> inputRDD = spark.textFile(filePath).distinct();
         long countPreBan = inputRDD
             .filter(line -> line.split("\t")[1].contains("+1/-1"))
             .filter(line -> Double.valueOf(line.split("\t")[3]) < 1530403200).count();

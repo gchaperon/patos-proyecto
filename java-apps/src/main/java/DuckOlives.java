@@ -11,8 +11,8 @@ public class DuckOlives {
         System.out.println(Utils.yearFromEpoch(criticalTime));
 
 
-        String rootsPath = "/home/gabriel/2019-1/patos/proyecto/data/root_all_wrepeat_tsdate_fixed.tsv";
-        String childsPath = "/home/gabriel/2019-1/patos/proyecto/data/child_all_wrepeat_tsdate_fixed.tsv";
+        String rootsPath = args[0];
+        String childsPath = args[1];
 
         JavaSparkContext spark = new JavaSparkContext(new SparkConf().setAppName("Duck Olives, your surname, very B A C A N!"));
 
