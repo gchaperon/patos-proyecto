@@ -20,8 +20,40 @@
 3. DONE! numero de votaciones  +1/-1, pre y post remocion de -1 (post julio 2018)
 
 ### TODOS
-* poner los distinct
-* hacer que reciba argumentos
+* DONE! poner los distinct
+* DONE! hacer que reciba argumentos
+
 
 # Como cresta correr
 spark-submit --class PlusOneMinusOne --master spark://cluster-01:7077 casuario-1.0-SNAPSHOT.jar hdfs://cm:9000/uhadoop2019/casuario/proyecto/root_all_wrepeat_tsdate_fixed.tsv
+
+
+## Argumentos por programa
+### CountWords
+0 - stop_words
+1 - roots
+2 - childs
+### DuckOlives
+0 - roots 
+1 - childs
+### JulyRooms
+0 - roots 
+1 - childs
+### MostAnsweredRoots
+0 - roots 
+1 - childs
+### PersonsPerYear
+0 - roots 
+1 - childs
+### PlusOneMinusOne
+0 - roots
+### TopCommanders
+0 - roots 
+1 - childs
+2 - comrades
+### TopCommentersPerTheme
+0 - roots 
+1 - childs 
+### TopFighters
+0 - roots
+1 - childs
