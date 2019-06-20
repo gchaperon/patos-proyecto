@@ -13,7 +13,7 @@ public class TopFighters {
         JavaSparkContext spark = new JavaSparkContext(new SparkConf().setAppName("Count +1/-1"));
 
         /* Se cargan los datos de los root */
-        JavaRDD<String> inputRootsRDD = spark.textFile(rootsPath);
+        JavaRDD<String> inputRootsRDD = spark.textFile(rootsPath).distinct();
         /* (id, (autor, id_parent, id_thr)) */
         JavaPairRDD<String, Tuple3<String, String, String>> fatherItselfRDD = inputRootsRDD.mapToPair(
                 line -> new Tuple2<>(line.split("\t")[0], // id de raiz
@@ -21,7 +21,7 @@ public class TopFighters {
         );
 
         /* Se cargan los datos de los childs */
-        JavaRDD<String> inputChildsRDD = spark.textFile(childsPath);
+        JavaRDD<String> inputChildsRDD = spark.textFile(childsPath).distinct();
         /* (id, (autor, id_parent, id_thr)) */
         JavaPairRDD<String, Tuple3<String, String, String>> childAndFatherRDD = inputChildsRDD.mapToPair(
                 line -> new Tuple2<>(line.split("\t")[0], // id del comentario
