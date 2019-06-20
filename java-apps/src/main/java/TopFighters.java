@@ -81,7 +81,7 @@ public class TopFighters {
                 .mapToPair(tup -> new Tuple2<>(tup._2, 1))
                 .reduceByKey(Integer::sum)
                 // .mapToPair(row -> new Tuple2<>(row._2, row._1))
-                .mapToPair(tup -> tup.swap())
+                .mapToPair(Tuple2::swap)
                 .sortByKey(false)
                 .take(20)
                 .forEach(System.out::println);

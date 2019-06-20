@@ -3,12 +3,12 @@
 ## ideas de que chucha hacer
 
 ### Serio
-1. pares de personas que mas han discutido (como definimos discutir ??)
+1. DONE! pares de personas que mas han discutido (como definimos discutir ??)
     * Por ahora una discusion sera: A comenta -> B responde a A -> A responde a B
-2. buscar top comenters
-    * DONE (por año)
-    * ver los del curso
-    * personas que han comentado una sola vez en el foro, cuantas?
+2. DONE! buscar top comenters
+    * DONE! (por año)
+    * DONE! ver los del curso
+    * DONE! personas que han comentado una sola vez en el foro, cuantas?
 <!-- 3. periodos de mayor actividad, con distintas granularidades (hora, dias, en un año) -->
 4. DONE!conteo de palabras, palabras mas usadas, en titulos, cuerpo, etc (chap)
 5. DONE! cantidad de personas distintas que han comentado por año (guido)
