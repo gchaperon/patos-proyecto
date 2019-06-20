@@ -15,7 +15,13 @@
 6. DONE!buscar raices con mas respuestas (lecaro)
 
 ### Pal meme
-1. cuantas veces a publicado JULIO SALAS, comparacion pre post comentario rodilleras
-2. numero de comentarios de aceituno antes y despues que le digan lo bacan que es su apellido
+1. DONE! cuantas veces a publicado JULIO SALAS, comparacion pre post comentario rodilleras
+2. DONE! numero de comentarios de aceituno antes y despues que le digan lo bacan que es su apellido
 3. DONE! numero de votaciones  +1/-1, pre y post remocion de -1 (post julio 2018)
 
+### TODOS
+* poner los distinct
+* hacer que reciba argumentos
+
+# Como cresta correr
+spark-submit --class PlusOneMinusOne --master spark://cluster-01:7077 casuario-1.0-SNAPSHOT.jar hdfs://cm:9000/uhadoop2019/casuario/proyecto/root_all_wrepeat_tsdate_fixed.tsv
